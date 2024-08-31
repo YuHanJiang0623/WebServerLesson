@@ -18,14 +18,20 @@ int main() {
         // 父进程
         // read
         char buff[1024] = {0};
-        int len = read(pipefb[0], buff, sizeof(buff));
-
-        printf("read recv : %s pid : %d\n", buff, getpid());
+        while (1)
+        {
+            int len = read(pipefb[0], buff, sizeof(buff));
+            printf("read recv : %s pid : %d\n", buff, getpid());    
+        }
     } else if (pid == 0) {
         // 子进程
         // write
-        const char *str = "hello";
-        write(pipefb[1], str, strlen(str));
+        while (1)
+        {
+            const char *str = "hello";
+            write(pipefb[1], str, strlen(str));     
+            sleep(1);   
+        }
     } else {
         printf("fork error!!\n");
     }
